@@ -50,9 +50,9 @@ CREATE TABLE `employees`(
   `placeOfBirth` varchar(191) NOT NULL,
   `dateOfBirth` date NOT NULL,
   `gender` tinyint(1) NOT NULL,
-  `bloodType` varchar(1) NULL,
+  `bloodType` varchar(2) NULL,
   `address` text NOT NULL,
-  `religion` varchar(191) NOT NULL,
+  `religion` tinyint(1) NOT NULL COMMENT '1 = Islam, 2 = Kristen Protestan, 3 = Kristen Katolik, 4 = Hindu, 5 = Budha, 6 = Konghucu',
   `maritalStatus` tinyint(1) NOT NULL COMMENT '1 = Belum Kawin, 2 = Kawin, 3 = Cerai Hidup, 4 = Cerai Mati',
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   `updatedAt` timestamp NULL
