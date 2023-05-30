@@ -7,7 +7,8 @@ https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 
 ## Development Tools
 - Go 1.20 https://tip.golang.org/doc/install
-- Echo Labstack https://echo.labstack.com/guide/#installation
+- Echo Labstack V4 https://echo.labstack.com/guide/#installation
+- MySQL 8
 
 ## Installation
 Clone this repository
