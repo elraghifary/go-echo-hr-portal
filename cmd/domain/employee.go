@@ -8,9 +8,10 @@ import (
 type (
 	EmployeeMySQLRepository interface {
 		Get(ctx context.Context) ([]Employee, error)
-		Create(ctx context.Context, employee Employee) (int64, error)
-		Update(ctx context.Context, employee Employee) (int64, error)
-		Delete(ctx context.Context, employee Employee) (int64, error)
+	}
+
+	EmployeeUsecase interface {
+		Get(ctx context.Context) ([]EmployeeResponse, error)
 	}
 )
 
@@ -27,4 +28,17 @@ type Employee struct {
 	MaritalStatus int
 	CreatedAt     time.Time
 	ModifiedAt    *time.Time
+}
+
+type EmployeeResponse struct {
+	Id            int64     `json:"id"`
+	NIK           string    `json:"nik"`
+	Name          string    `json:"name"`
+	PlaceOfBirth  string    `json:"placeOfBirth"`
+	DateOfBirth   time.Time `json:"dateOfBirth"`
+	Gender        string    `json:"gender"`
+	BloodType     string    `json:"bloodType"`
+	Address       string    `json:"address"`
+	Religion      int       `json:"religion"`
+	MaritalStatus int       `json:"maritalStatus"`
 }
