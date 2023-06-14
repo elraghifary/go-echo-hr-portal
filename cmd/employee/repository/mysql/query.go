@@ -14,7 +14,7 @@ const (
 			religion,
 			maritalStatus,
 			createdAt,
-			modifiedAt
+			updatedAt
 		FROM
 			employees
 	`
@@ -38,7 +38,7 @@ const (
 			address,
 			isDefault,
 			createdAt,
-			modifiedAt
+			updatedAt
 		) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 	`
 
@@ -55,7 +55,7 @@ const (
 			village = ?,
 			postalCode = ?,
 			address = ?,
-			modifiedAt = ?
+			updatedAt = ?
 		WHERE
 			id = ?
 			AND guid = ?
@@ -73,7 +73,7 @@ const (
 		UPDATE userAddress
 		SET
 			isDefault = ?,
-			modifiedAt = ?
+			updatedAt = ?
 		WHERE
 			id = ?
 			AND guid = ?

@@ -10,5 +10,5 @@ type Assignment struct {
 	EndDate    time.Time
 	Status     int
 	CreatedAt  time.Time
-	ModifiedAt *time.Time
+	UpdatedAt  *time.Time
 }

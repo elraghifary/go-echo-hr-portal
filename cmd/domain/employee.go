@@ -21,24 +21,24 @@ type Employee struct {
 	Name          string
 	PlaceOfBirth  string
 	DateOfBirth   time.Time
-	Gender        string
+	Gender        int
 	BloodType     string
 	Address       string
 	Religion      int
 	MaritalStatus int
 	CreatedAt     time.Time
-	ModifiedAt    *time.Time
+	UpdatedAt     *time.Time
 }
 
 type EmployeeResponse struct {
-	Id            int64     `json:"id"`
-	NIK           string    `json:"nik"`
-	Name          string    `json:"name"`
-	PlaceOfBirth  string    `json:"placeOfBirth"`
-	DateOfBirth   time.Time `json:"dateOfBirth"`
-	Gender        string    `json:"gender"`
-	BloodType     string    `json:"bloodType"`
-	Address       string    `json:"address"`
-	Religion      int       `json:"religion"`
-	MaritalStatus int       `json:"maritalStatus"`
+	Id            int64  `json:"id"`
+	NIK           string `json:"nik"`
+	Name          string `json:"name"`
+	PlaceOfBirth  string `json:"placeOfBirth"`
+	DateOfBirth   string `json:"dateOfBirth"`
+	Gender        string `json:"gender"`
+	BloodType     string `json:"bloodType"`
+	Address       string `json:"address"`
+	Religion      string `json:"religion"`
+	MaritalStatus string `json:"maritalStatus"`
 }

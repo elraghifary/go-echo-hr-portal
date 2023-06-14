@@ -23,7 +23,7 @@ func init() {
 	}
 }
 
-func TestEmployeeUsecase(t *testing.T) {
+func TestNew(t *testing.T) {
 	assert.NotNil(t, New(nil, nil))
 }
 
@@ -42,7 +42,7 @@ func TestGet(t *testing.T) {
 	}()
 	dateOfBirth := time.Date(2006, 1, 2, 0, 0, 0, 0, inttime.GetLocation())
 	employeeMySQLRepository := mockdomain.NewMockEmployeeMySQLRepository(ctrl)
-	uc := &employeeUsecase{
+	usecase := &employeeUsecase{
 		employeeMySQLRepository: employeeMySQLRepository,
 	}
 
@@ -67,12 +67,12 @@ func TestGet(t *testing.T) {
 					NIK:           "123456789123456",
 					Name:          "John Doe",
 					PlaceOfBirth:  "Jakarta",
-					DateOfBirth:   dateOfBirth,
+					DateOfBirth:   dateOfBirth.Format(identifier.TimeFormat5),
 					Gender:        "Laki-laki",
 					BloodType:     "O",
 					Address:       "Jalan Baru No. 1",
-					Religion:      0,
-					MaritalStatus: 1,
+					Religion:      "Islam",
+					MaritalStatus: "Belum Kawin",
 				},
 			},
 			wantErr: false,
@@ -84,13 +84,13 @@ func TestGet(t *testing.T) {
 						Name:          "John Doe",
 						PlaceOfBirth:  "Jakarta",
 						DateOfBirth:   dateOfBirth,
-						Gender:        "Laki-laki",
+						Gender:        0,
 						BloodType:     "O",
 						Address:       "Jalan Baru No. 1",
-						Religion:      0,
+						Religion:      1,
 						MaritalStatus: 1,
 						CreatedAt:     now,
-						ModifiedAt:    nil,
+						UpdatedAt:     nil,
 					},
 				}, nil)
 			},
@@ -123,7 +123,7 @@ func TestGet(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			test.mock()
 
-			got, err := uc.Get(test.args.ctx)
+			got, err := usecase.Get(test.args.ctx)
 			assert.Equal(t, test.wantErr, err != nil)
 			assert.Equal(t, test.wantResult, got)
 		})

@@ -43,7 +43,7 @@ func (r *employeeMySQLRepository) fetchAll(ctx context.Context, query string, ar
 			&employee.Religion,
 			&employee.MaritalStatus,
 			&employee.CreatedAt,
-			&employee.ModifiedAt,
+			&employee.UpdatedAt,
 		)
 		if err != nil {
 			return nil, err
@@ -77,7 +77,7 @@ func (r *employeeMySQLRepository) fetchOne(ctx context.Context, query string, ar
 		&employee.Religion,
 		&employee.MaritalStatus,
 		&employee.CreatedAt,
-		&employee.ModifiedAt,
+		&employee.UpdatedAt,
 	)
 	if err != nil {
 		return nil, err
@@ -129,7 +129,7 @@ func (r *employeeMySQLRepository) Get(ctx context.Context) ([]domain.Employee, e
 func (r *employeeMySQLRepository) Create(ctx context.Context, employee domain.Employee) (int64, error) {
 	id, _, err := r.execContext(ctx, QueryCreate,
 		employee.CreatedAt,
-		employee.ModifiedAt,
+		employee.UpdatedAt,
 	)
 	if err != nil {
 		return 0, err
@@ -140,7 +140,7 @@ func (r *employeeMySQLRepository) Create(ctx context.Context, employee domain.Em
 
 func (r *employeeMySQLRepository) Update(ctx context.Context, employee domain.Employee) (int64, error) {
 	_, rows, err := r.execContext(ctx, QueryUpdate,
-		employee.ModifiedAt,
+		employee.UpdatedAt,
 		employee.Id,
 	)
 	if err != nil {

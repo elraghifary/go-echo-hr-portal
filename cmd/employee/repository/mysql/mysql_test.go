@@ -23,7 +23,7 @@ func init() {
 	}
 }
 
-func TestEmployeeMySQLRepository(t *testing.T) {
+func TestNew(t *testing.T) {
 	assert.NotNil(t, New(nil, nil))
 }
 
@@ -74,23 +74,23 @@ func TestGet(t *testing.T) {
 					Name:          "John Doe",
 					PlaceOfBirth:  "Jakarta",
 					DateOfBirth:   dateOfBirth,
-					Gender:        "Laki-laki",
+					Gender:        0,
 					BloodType:     "O",
 					Address:       "Jalan Baru No. 1",
 					Religion:      0,
 					MaritalStatus: 1,
 					CreatedAt:     now,
-					ModifiedAt:    nil,
+					UpdatedAt:     nil,
 				},
 			},
 			wantErr: false,
 			mock: func() {
 				columns := []string{
-					"id", "nik", "name", "placeOfBirth", "dateOfBirth", "gender", "bloodType", "address", "religion", "maritalStatus", "createdAt", "modifiedAt",
+					"id", "nik", "name", "placeOfBirth", "dateOfBirth", "gender", "bloodType", "address", "religion", "maritalStatus", "createdAt", "updatedAt",
 				}
 				rows := sqlmock.
 					NewRows(columns).
-					AddRow(1, "123456789123456", "John Doe", "Jakarta", dateOfBirth, "Laki-laki", "O", "Jalan Baru No. 1", 0, 1, now, nil)
+					AddRow(1, "123456789123456", "John Doe", "Jakarta", dateOfBirth, 0, "O", "Jalan Baru No. 1", 0, 1, now, nil)
 				mock.ExpectQuery("SELECT").WillReturnRows(rows)
 			},
 		},

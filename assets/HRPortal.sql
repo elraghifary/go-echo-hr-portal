@@ -49,7 +49,7 @@ CREATE TABLE `employees`(
   `name` varchar(191) NOT NULL,
   `placeOfBirth` varchar(191) NOT NULL,
   `dateOfBirth` date NOT NULL,
-  `gender` tinyint(1) NOT NULL,
+  `gender` tinyint(1) NOT NULL COMMENT '0 = Laki-laki, 1 = Perempuan',
   `bloodType` varchar(2) NULL,
   `address` text NOT NULL,
   `religion` tinyint(1) NOT NULL COMMENT '1 = Islam, 2 = Kristen Protestan, 3 = Kristen Katolik, 4 = Hindu, 5 = Budha, 6 = Konghucu',

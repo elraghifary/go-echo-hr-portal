@@ -6,18 +6,22 @@ import (
 	"strconv"
 
 	"github.com/elraghifary/go-echo-hr-portal/cmd/domain"
-	employeemysql "github.com/elraghifary/go-echo-hr-portal/cmd/employee/repository/mysql"
+	employeehttpdelivery "github.com/elraghifary/go-echo-hr-portal/cmd/employee/delivery/http"
+	employeemysqlrepository "github.com/elraghifary/go-echo-hr-portal/cmd/employee/repository/mysql"
+	employeeusecase "github.com/elraghifary/go-echo-hr-portal/cmd/employee/usecase"
 	"github.com/elraghifary/go-echo-hr-portal/cmd/identifier"
 	interror "github.com/elraghifary/go-echo-hr-portal/internal/error"
 	intsql "github.com/elraghifary/go-echo-hr-portal/internal/sql"
 	inttime "github.com/elraghifary/go-echo-hr-portal/internal/time"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 var (
 	mysql                   *sql.DB
 	tx                      *intsql.Tx
 	employeeMySQLRepository domain.EmployeeMySQLRepository
+	employeeUsecase         domain.EmployeeUsecase
 )
 
 func initOther() error {
@@ -34,10 +38,14 @@ func initDB() error {
 }
 
 func initRepository() {
-	employeeMySQLRepository = employeemysql.New(mysql, tx)
+	employeeMySQLRepository = employeemysqlrepository.New(mysql, tx)
 }
 
-func initHTTP() error {
+func initUsecase() {
+	employeeUsecase = employeeusecase.New(employeeMySQLRepository, tx)
+}
+
+func initHTTPDelivery() error {
 	debug, err := strconv.ParseBool(os.Getenv("APP_DEBUG"))
 	if err != nil {
 		return err
@@ -45,6 +53,9 @@ func initHTTP() error {
 
 	e := echo.New()
 	e.Debug = debug
+	e.Use(middleware.CORS())
+
+	employeehttpdelivery.New(e, employeeUsecase)
 
 	return e.Start(os.Getenv("SERVER_PORT"))
 }
@@ -69,8 +80,9 @@ func main() {
 	}()
 
 	initRepository()
+	initUsecase()
 
-	err = initHTTP()
+	err = initHTTPDelivery()
 	if err != nil {
 		interror.ErrorStack(err)
 	}
